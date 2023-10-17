@@ -1,3 +1,5 @@
+let completedQuestions = []
+
 const displayQuestions = () => {
     document.getElementById("questions").innerHTML = ""
     let numberOfQuestions = Number(document.getElementById("numberOfQuestions").value);
@@ -6,14 +8,25 @@ const displayQuestions = () => {
                 <input type="text" id="afk" placeholder="Enter question id">
                 <button onclick="displayQuestion(event)">Confirm</button>
                 <img src="" alt="">
-                <button onclick="markQuestion()">Done</button>
+                <button onclick="markQuestion(event)">Done</button>
             </div>`
     }
 }
 
+const doneStatus = (questionId) => {
+    for (let i = 0; i < completedQuestions.length; i++) {
+        if(completedQuestions[i] == questionId){
+            return -1;
+        }
+    }
+    return 1
+}
+
+
 const displayQuestion = (e) => {
-    let questionId = e.target.parentElement.getElementsByTagName('input')[0].value;
-    // console.log(questionId)
+    let parent = e.target.parentElement
+    let questionId = parent.getElementsByTagName('input')[0].value;
+    let done = doneStatus(questionId)
     let difficulty = ""
     if(questionId[0] == 'e'){
          difficulty = "easy"
@@ -24,5 +37,28 @@ const displayQuestion = (e) => {
     else {
          difficulty = "hard"
     }
-    e.target.parentElement.getElementsByTagName('img')[0].src = `/questions/${difficulty}/${questionId}.jpg`;
+    parent.getElementsByTagName('img')[0].src = `/questions/${difficulty}/${questionId}.jpg`;
+    if(done == -1){
+        parent.innerHTML += '<message>This question has already been attempted</message>'
+        setTimeout(() => {
+            parent.getElementsByTagName('message')[0].remove();
+        }, 2000);
+    }
+}
+
+const markQuestion = (e) => {
+    let parent = e.target.parentElement
+    let questionId = parent.getElementsByTagName('input')[0].value;
+    if(questionId != ""){
+    for (let i = 0; i < completedQuestions.length; i++) {
+        if(completedQuestions[i] == questionId){
+            return -1;
+        }
+    }
+        completedQuestions.push(questionId)
+        parent.innerHTML += '<message>This question is marked attempted</message>'
+        setTimeout(() => {
+           console.log(parent.getElementsByTagName('message')[0].remove())
+        }, 3000);
+    }
 }
