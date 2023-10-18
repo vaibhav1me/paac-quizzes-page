@@ -1,12 +1,16 @@
 let completedQuestions = []
 
+if(JSON.parse(localStorage.getItem("completedQuestions"))){
+    completedQuestions = JSON.parse(localStorage.getItem("completedQuestions"));
+}
+
 const displayQuestions = () => {
     document.getElementById("questions").innerHTML = ""
     let numberOfQuestions = Number(document.getElementById("numberOfQuestions").value);
     let width = '45%';
     let imageHeight = '30rem'
     if(numberOfQuestions>4){
-     imageHeight = '7rem'
+     imageHeight = '8rem'
     }
     else if(numberOfQuestions>2){
         imageHeight = '15rem'
@@ -72,6 +76,7 @@ const markQuestion = (e) => {
         }
     }
         completedQuestions.push(questionId)
+        localStorage.setItem("completedQuestions", JSON.stringify(completedQuestions))
         parent.innerHTML += '<message>This question is marked attempted</message>'
         setTimeout(() => {
            console.log(parent.getElementsByTagName('message')[0].remove())
