@@ -3,13 +3,25 @@ let completedQuestions = []
 const displayQuestions = () => {
     document.getElementById("questions").innerHTML = ""
     let numberOfQuestions = Number(document.getElementById("numberOfQuestions").value);
+    let width = '45%';
+    let imageHeight = '30rem'
+    if(numberOfQuestions>2){
+     imageHeight = '15rem'
+    }
+    
     for (let i = 0; i < numberOfQuestions; i++) {
-        document.getElementById("questions").innerHTML += `<div class="question">
-                <input type="text" id="afk" placeholder="Enter question id">
-                <button onclick="displayQuestion(event)">Confirm</button>
-                <img src="" alt="">
+        if((numberOfQuestions%2 == 1 && i == numberOfQuestions-1) || numberOfQuestions==1){
+            width = '92%';
+        }
+        document.getElementById("questions").innerHTML += `<div class="question" style="width:${width};">
+                <div>
+                    <input type="text" placeholder="Enter question id">
+                    <button onclick="displayQuestion(event)">Confirm</button>
+                </div>
+                <img style="height:${imageHeight};" src="" alt="No question selected. Enter question id to display question">
                 <button onclick="markQuestion(event)">Done</button>
             </div>`
+        
     }
 }
 
@@ -24,7 +36,7 @@ const doneStatus = (questionId) => {
 
 
 const displayQuestion = (e) => {
-    let parent = e.target.parentElement
+    let parent = e.target.parentElement.parentElement
     let questionId = parent.getElementsByTagName('input')[0].value;
     let done = doneStatus(questionId)
     let difficulty = ""
