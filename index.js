@@ -9,6 +9,11 @@ const displayQuestions = () => {
     let numberOfQuestions = Number(document.getElementById("numberOfQuestions").value);
     let width = '45%';
     let imageHeight = '30rem'
+
+    
+    if (numberOfQuestions > 6) {
+        numberOfQuestions = 6;
+    }
     if(numberOfQuestions>4){
      imageHeight = '8rem'
     }
@@ -25,7 +30,7 @@ const displayQuestions = () => {
                     <input type="text" placeholder="Enter question id">
                     <button onclick="displayQuestion(event)">Confirm</button>
                 </div>
-                <img style="height:${imageHeight};" src="" alt="No question selected. Enter question id to display question">
+                <img style="height:${imageHeight}; width:${width}; object-fit:cover;" src="" alt="No question selected. Enter question id to display question">
                 <button onclick="markQuestion(event)">Done</button>
             </div>`
         
