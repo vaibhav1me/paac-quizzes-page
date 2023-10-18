@@ -5,8 +5,11 @@ const displayQuestions = () => {
     let numberOfQuestions = Number(document.getElementById("numberOfQuestions").value);
     let width = '45%';
     let imageHeight = '30rem'
-    if(numberOfQuestions>2){
-     imageHeight = '15rem'
+    if(numberOfQuestions>4){
+     imageHeight = '7rem'
+    }
+    else if(numberOfQuestions>2){
+        imageHeight = '15rem'
     }
     
     for (let i = 0; i < numberOfQuestions; i++) {
