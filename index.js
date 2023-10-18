@@ -44,12 +44,7 @@ const displayQuestion = (e) => {
             parent.getElementsByTagName('message')[0].remove();
         }, 2000);
     }
-    else if (!imageUrl) {
-        parent.innerHTML += '<message>Question ID not found</message>';
-        setTimeout(() => {
-            parent.getElementsByTagName('message')[0].remove();
-        }, 2000);
-    }
+    
 }
 
 const markQuestion = (e) => {
