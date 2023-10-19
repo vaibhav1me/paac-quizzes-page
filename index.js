@@ -8,12 +8,8 @@ const displayQuestions = () => {
     document.getElementById("questions").innerHTML = ""
     let numberOfQuestions = Number(document.getElementById("numberOfQuestions").value);
     let width = '45%';
-    let imageHeight = '30rem'
-
+    let imageHeight = ''
     
-    if (numberOfQuestions > 6) {
-        numberOfQuestions = 6;
-    }
     if(numberOfQuestions>4){
      imageHeight = '8rem'
     }
@@ -29,14 +25,14 @@ const displayQuestions = () => {
                 <div>
                     <input type="text" placeholder="Enter question id">
                     <button onclick="displayQuestion(event)">Confirm</button>
+                    <button onclick="markQuestion(event)">Done</button>
                 </div>
-                <img style="height:${imageHeight}; width:${width}; object-fit:cover;" src="" alt="No question selected. Enter question id to display question">
-                <button onclick="markQuestion(event)">Done</button>
-            </div>`
-        
-    }
-}
-
+                <img src="" style="max-height: ${imageHeight}" alt="No question selected. Enter question id to display question">
+                </div>`
+            }
+        }
+        // style="height:${imageHeight};"
+        // <div id="question_img";"></div>
 const doneStatus = (questionId) => {
     for (let i = 0; i < completedQuestions.length; i++) {
         if(completedQuestions[i] == questionId){
@@ -51,28 +47,33 @@ const displayQuestion = (e) => {
     let parent = e.target.parentElement.parentElement
     let questionId = parent.getElementsByTagName('input')[0].value;
     let done = doneStatus(questionId)
-    let difficulty = ""
-    if(questionId[0] == 'e'){
-         difficulty = "easy"
-    }
-    else if (questionId[0] == 'm'){
-         difficulty = "medium"
-    }
-    else {
-         difficulty = "hard"
-    }
-    parent.getElementsByTagName('img')[0].src = `/questions/${difficulty}/${questionId}.jpg`;
+    parent.getElementsByTagName('img')[0].src = `/images/${questionId}.jpg`;
+
+    // let difficulty = ""
+    // if(questionId[0] == 'e' || questionId[0]=='E' ){
+    //      difficulty = "easy"
+    // }
+    // else if (questionId[0] == ('m' || 'M')){
+    //      difficulty = "medium"
+    // }
+    // else {
+    //      difficulty = "hard"
+    // }
+    // console.log(questionId)
+    // parent.getElementsByTagName('img')[0].src = `/questions/${difficulty}/${questionId}.jpg`;
+    // parent.querySelector('#question_img').style.backgroundImage = `url("/questions/${difficulty}/${questionId}.jpg")`;
+    // console.log(parent.querySelector('#question_img').style.backgroundImage)
+
     if(done == -1){
         parent.innerHTML += '<message>This question has already been attempted</message>'
         setTimeout(() => {
             parent.getElementsByTagName('message')[0].remove();
         }, 2000);
     }
-    
 }
 
 const markQuestion = (e) => {
-    let parent = e.target.parentElement
+    let parent = e.target.parentElement.parentElement
     let questionId = parent.getElementsByTagName('input')[0].value;
     if(questionId != ""){
     for (let i = 0; i < completedQuestions.length; i++) {
