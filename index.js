@@ -47,7 +47,7 @@ const displayQuestion = (e) => {
     let parent = e.target.parentElement.parentElement
     let questionId = parent.getElementsByTagName('input')[0].value;
     let done = doneStatus(questionId)
-    parent.getElementsByTagName('img')[0].src = `/images/${questionId}.jpg`;
+    parent.getElementsByTagName('img')[0].src = `/images/${questionId}.png`;
 
     // let difficulty = ""
     // if(questionId[0] == 'e' || questionId[0]=='E' ){
