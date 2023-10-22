@@ -1,3 +1,4 @@
+
 let completedQuestions = []
 
 if(JSON.parse(localStorage.getItem("completedQuestions"))){
@@ -8,7 +9,17 @@ const displayQuestion = (e) => {
     let parent = e.target.parentElement.parentElement
     let questionId = parent.getElementsByTagName('input')[0].value;
     let done = doneStatus(questionId)
-    parent.getElementsByTagName('img')[0].src = `/images/${questionId}.png`;
+    let image = new Image()
+    let format = 'jpg';
+    let url_image = `/images/${questionId}.jpg`
+    image.src = url_image;
+    image.onload = () => {
+        parent.getElementsByTagName('img')[0].src = `/images/${questionId}.${format}`;
+    }
+    image.onerror = () => {
+        format = 'png'
+        parent.getElementsByTagName('img')[0].src = `/images/${questionId}.${format}`;
+    }
 
     // let difficulty = ""
     // if(questionId[0] == 'e' || questionId[0]=='E' ){
